@@ -21,13 +21,12 @@ namespace Loteria.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -35,36 +34,10 @@ namespace Loteria.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder =>
+                builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseMvc();
-        }
-    }
-
-    public class ExceptionMiddleware
-    {
-        private readonly RequestDelegate _next;
-
-        public ExceptionMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception ex)
-            {
-                context.Response.ContentType = "text/plain";
-                context.Response.StatusCode = 400;
-
-                if (ex is ApplicationException)
-                {
-                    await context.Response.WriteAsync(ex.Message);
-                }
-            }
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Loteria.Api
 {
-    public class BilheteMegaSenaRequest
+    public class BilheteMegaSenaVO
     {
         public int Dezena1 { get; set; }
         public int Dezena2 { get; set; }

@@ -1,0 +1,51 @@
+<div class="main">
+  <div class="coluna">
+    <div class="linha border">
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena1" class="dezena"></div>
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena2" class="dezena"></div>
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena3" class="dezena"></div>
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena4" class="dezena"></div>
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena5" class="dezena"></div>
+      <div class="coluna-sm"><input type="number" [(ngModel)]="dezena6" class="dezena"></div>
+    </div>
+    <div class="linha border">
+      <div class="coluna-sm" style="margin-top: 5px;">
+        <button (click)="participar()" [disabled]="concursoFinalizado">Participar</button>
+      </div>
+      <div class="coluna-sm" style="margin-top: 5px;">
+        <button (click)="surpresinha()" [disabled]="concursoFinalizado">Surpresinha</button>
+      </div>
+    </div>
+    <div class="linha border">
+      <div *ngIf="exibirVencedores">
+        Vencedores
+        <div *ngFor="let vencedor of vencedores" class="main">
+          <div class="coluna borda">
+            <label>{{vencedor.premio}} - {{vencedor.bilhetes.length}} acertador(es)</label>
+          </div>
+          <div *ngFor="let bilhete of vencedor.bilhetes" class="coluna borda">
+            <label>{{bilhete.dezena1}}, {{bilhete.dezena2}}, {{bilhete.dezena3}}, {{bilhete.dezena4}}, {{bilhete.dezena5}}, {{bilhete.dezena6}}</label>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="exibirSemVencedores">
+        Sem vencedores
+      </div>
+    </div>
+  </div>
+  <div class="coluna">
+    <div style="text-align: center;" class="borda">
+      <label>JOGOS</label>
+    </div>
+    <div *ngFor="let jogo of jogos" class="main">
+      <div class="coluna-sm borda">{{jogo.dezena1}}</div>
+      <div class="coluna-sm borda">{{jogo.dezena2}}</div>
+      <div class="coluna-sm borda">{{jogo.dezena3}}</div>
+      <div class="coluna-sm borda">{{jogo.dezena4}}</div>
+      <div class="coluna-sm borda">{{jogo.dezena5}}</div>
+      <div class="coluna-sm borda">{{jogo.dezena6}}</div>
+    </div>
+    <button (click)="sortear()" [disabled]="concursoFinalizado">Sortear</button>
+  </div>
+</div>
+
